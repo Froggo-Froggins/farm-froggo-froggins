@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Fascinate&family=IM+Fell+French+Canon+SC&display=swap');
+
+* {
+    font-family: "Fell French Canon SC",serif;
+    font-weight: 400;
+    font-style: normal;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+::-webkit-scrollbar-track {
+    background: #6c5162;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #9d8492;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    border-left: 1px solid white;
+}
