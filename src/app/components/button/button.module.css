@@ -1,0 +1,40 @@
+.customButton {
+    padding: 1rem 0rem;
+    border: 1px solid white;
+    font-size: 3rem;
+    cursor: pointer;
+    transition: transform 0.2s ease; 
+    text-align: center;
+    margin: 0;
+    min-width: 300px;
+    background-color: rgb(62, 53, 71)
+}
+
+.customButton:hover {
+    animation: scaleUpDown .4s ease-in-out infinite;
+}
+
+.other{
+    padding: 1rem;
+    max-width: 160px;
+}
+
+@keyframes scaleUpDown {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.03);
+    }
+}
+
+.buyNow:active {
+    transform: scale(0.9);
+}
+
+@media (max-width:1000px){
+    .customButton{
+        min-width: 0;
+        width: 400px;
+    }
+}
