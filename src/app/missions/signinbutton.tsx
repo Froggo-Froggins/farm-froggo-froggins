@@ -49,10 +49,12 @@ const SignInButton = () => {
             <button onClick={() => {
         signOut('twitter')
       }}>TWITTER SIGNOUT</button>
+
       <button onClick={async () => { const result = await getProvider()
       window.alert(`WALLET ADDRESS: ${result.publicKey.toString()}`)
         console.info(result.publicKey.toString());
        }}>WALLET</button>
+    
     </div>
   )
 }
