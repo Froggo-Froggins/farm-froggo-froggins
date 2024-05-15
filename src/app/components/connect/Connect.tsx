@@ -1,6 +1,6 @@
 //@ts-nocheck
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styles from './connect.module.css'
 import CustomButtom from '../button/Button'
 import { signIn, signOut, useSession } from 'next-auth/react'
@@ -9,25 +9,35 @@ import Image from 'next/image'
 const Connect = () => {
     const [wallet, setWallet] = useState("");
     const session = useSession();
+    const triggeredRef = useRef(false); 
 
 
     const connectWallet = async () => {
         if ("solana" in window) {
             try {
                 await window.solana.connect();
+                const provider = window.solana;
+                console.info(provider.publicKey.toString())
+                setWallet(provider.publicKey.toString());
             } catch (e) {
                 console.info(e)
             }
-            const provider = window.solana;
-            console.info(provider.publicKey.toString())
-            setWallet(provider.publicKey.toString());
         }
     }
+    
 
     useEffect(() => {
+    
         const attemptConnection = async (retries) => {
+            if (triggeredRef.current) return;
+            
+            if (retries <= 0) {
+                console.error("Failed to connect to Solana after multiple attempts");
+                return;
+            }
+    
             try {
-                console.info(1111)
+                triggeredRef.current = true;
                 if ("solana" in window) {
                     await window.solana.connect();
                     const provider = window.solana;
@@ -36,19 +46,22 @@ const Connect = () => {
                     throw new Error("Solana not connected");
                 }
             } catch (error) {
-                console.info(error)
-                if (retries > 0) {
-                    setTimeout(() => {
-                        attemptConnection(retries - 1);
-                    }, 300);
-                } else {
-                    console.error("Failed to connect to Solana after multiple attempts");
+                console.info(error);
+                if (error.message.includes("User rejected the request")) {
+                    console.error("User rejected the request. Stopping further attempts.");
+                    return;
                 }
+                retries--; 
+                setTimeout(() => {
+                    attemptConnection(retries - 1);
+                }, 1000);
             }
         };
-
-        attemptConnection(5); // Attempt connection 5 times
+    
+        attemptConnection(1); // Attempt connection 5 times
     }, []);
+    
+    
 
     console.info(session)
 
