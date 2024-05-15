@@ -14,7 +14,7 @@ export default async function Tasks() {
     <div className={styles.missions}>
         <Topbar/>
         <User session={ses}/>
-        <Points/>
+        <Points points={200} referalPoints={43} referals={3}/>
     </div>
   );
 }
