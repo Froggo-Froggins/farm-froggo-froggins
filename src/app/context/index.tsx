@@ -7,7 +7,9 @@ interface UserDataContextType {
     username: string,
     setWallet: (wallet: string) => void,
     setImageUrl: (imageUrl: string) => void,
-    setUsername: (username: string) => void
+    setUsername: (username: string) => void,
+    setInputedReferralCode:(input:string)=>void,
+    inputedReferralCode:string
 }
 
 
@@ -21,6 +23,7 @@ interface UserData {
     wallet: string,
     imageUrl: string,
     username: string,
+    inputedReferralCode:string
 }
 
 const UserDataContext = createContext<UserDataContextType | undefined>(undefined);
@@ -29,6 +32,13 @@ const initialUserData: UserData = {
     wallet: '',
     imageUrl: '',
     username: '',
+    inputedReferralCode:''
+};
+
+const initialPoints: Points = {
+    total: 0,
+    referrals: 0,
+    referralsPoints: 0
 };
 
 export function useUserData() {
@@ -41,6 +51,7 @@ export function useUserData() {
 
 export function UserDataProvider({ children }: { children: ReactNode }) {
     const [userData, setUserData] = useState<UserData>(initialUserData);
+    const [points, setPoints] = useState<Points>(initialPoints);
 
     const setWallet = (wallet: string) => {
         setUserData(prevUserData => ({ ...prevUserData, wallet }));
@@ -54,11 +65,19 @@ export function UserDataProvider({ children }: { children: ReactNode }) {
         setUserData(prevUserData => ({ ...prevUserData, username }));
     };
 
+    const setInputedReferralCode = (inputedReferralCode: string) => {
+        setUserData(prevUserData => ({ ...prevUserData, inputedReferralCode }));
+    };
+
     const contextValue = {
         ...userData,
         setWallet,
         setImageUrl,
-        setUsername
+        setUsername,
+        setInputedReferralCode,
+        inputedReferralCode: userData.inputedReferralCode,
+        points,
+        setPoints,
     };
 
     return (

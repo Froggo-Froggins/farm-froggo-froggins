@@ -57,7 +57,12 @@ export default function Home() {
           <input type="text" value={referralCode} onChange={handleReferralCodeChange} placeholder=" Referral code" />
           <CustomButton enabled={true} onClick={() => {
             setSubmitClicked(true)
+            userData.setInputedReferralCode(referralCode);
           }} text="Submit" />
+           <CustomButton enabled={true} onClick={() => {
+          setHasClickedYes(true)
+          setSubmitClicked(true);
+          }} text="Skip" />
         </div>
       }
       { (hasClickedNo || submitClicked) &&
