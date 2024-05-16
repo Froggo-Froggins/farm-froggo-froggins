@@ -3,4 +3,8 @@
     align-items: center;
     justify-content: center;
     gap: 2rem;
+    width: 100%;
+    padding-bottom: 2rem;
+    flex-wrap: wrap;
+    padding: 2rem;
 }

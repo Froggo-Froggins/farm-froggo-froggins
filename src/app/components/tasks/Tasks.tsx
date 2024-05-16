@@ -11,7 +11,10 @@ export interface ITask{
 const Tasks = ({currentTasks}:{currentTasks:ITask[]}) => {
   return (
     <div className={styles.tasks}>
-        Tasks
+      <h1>Tasks</h1>
+        <div className={styles.tasksList}>
+          Tasks List
+        </div>
     </div>
   )
 }

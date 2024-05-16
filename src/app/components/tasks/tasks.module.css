@@ -1,8 +1,19 @@
 .tasks{
-    background-color: rgb(96, 149, 170);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 2rem;
-    margin: 0 5rem;
+    flex-direction: column;
+    width: 80%;
+    padding: 2rem;
+    position: relative;
+    border: 1px solid white;
+    border-radius: 2rem;
+    margin-top: 1rem;
+}
+
+.tasksList{
+    width: 100%;
+    border-radius: 1rem;
+    height: 400px;
 }

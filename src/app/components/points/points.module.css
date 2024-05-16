@@ -4,8 +4,11 @@
     justify-content: center;
     flex-direction: column;
     gap: 1rem;
-    margin: 3rem 0;
     border-top: 1px solid white;
+    width: 80%;
+    text-align: center;
+    border: 1px solid white;
+    border-radius: 2rem;
 }
 
 .totalPoints{
@@ -16,16 +19,18 @@
     width: 100%;
     font-size: 2.5rem;
     padding: 3rem;
-    padding-bottom: 0rem;
+    padding-bottom: 0.5rem;
 }
 
 .referalPoints{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 80%;
     font-size: 2.2rem;
     padding: 0 2rem;
+    gap: 3rem;
+    width: 100%;
+    flex-wrap: wrap;
 }
 
 .left, .right{
@@ -33,4 +38,10 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+}
+
+@media (max-width: 768px) {
+    .referalPoints {
+        justify-content: center;
+    }
 }
