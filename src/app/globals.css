@@ -59,3 +59,37 @@ main{
     padding: 1rem;
     gap: 1.5rem;
 }
+
+
+.doYou{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+
+.doYouButtons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.referralForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.referralForm > input {
+    background-color: transparent;
+    border: 1px solid white;
+    font-size: 1.5rem;
+    font-size: clamp(1.5rem, 1.4rem + 0.5vw, 2rem);
+    width: 300px;
+    color: white;
+    text-align: center; 
+}

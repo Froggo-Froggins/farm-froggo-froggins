@@ -13,11 +13,11 @@ const ReferalPoints = ({referalPoints,referals}:{referalPoints:number,referals:n
   return (
     <div className={styles.referalPoints}>
       <div className={styles.left}>
-        <span>Total Referals</span>
+        <span>Total Referrals</span>
         <span>{referals}</span>
       </div>
       <div className={styles.left}>
-        <span>Referal Points</span>
+        <span>Referral Points</span>
         <span>{referalPoints}</span>
       </div>
     </div>

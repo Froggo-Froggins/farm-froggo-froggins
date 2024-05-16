@@ -1,23 +1,31 @@
-//@ts-nocheck
 'use client'
 import React, { useEffect, useRef, useState } from 'react'
 import styles from './connect.module.css'
 import CustomButtom from '../button/Button'
 import { signIn, signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
+import { useUserData } from '@/app/context'
 
 const Connect = () => {
-    const [wallet, setWallet] = useState("");
     const session = useSession();
     const triggeredRef = useRef(false); 
 
+    const { wallet,imageUrl,username,setWallet,setImageUrl,setUsername } = useUserData();
+
+    useEffect(()=>{
+        if(session.status==='authenticated'){
+            setUsername(session.data.user?.name || '');
+            setImageUrl(session.data.user?.image || '')
+        }
+    },[session])
 
     const connectWallet = async () => {
         if ("solana" in window) {
             try {
+                //@ts-ignore
                 await window.solana.connect();
                 const provider = window.solana;
-                console.info(provider.publicKey.toString())
+                //@ts-ignore
                 setWallet(provider.publicKey.toString());
             } catch (e) {
                 console.info(e)
@@ -27,7 +35,7 @@ const Connect = () => {
     
 
     useEffect(() => {
-    
+                //@ts-ignore
         const attemptConnection = async (retries) => {
             if (triggeredRef.current) return;
             
@@ -39,13 +47,15 @@ const Connect = () => {
             try {
                 triggeredRef.current = true;
                 if ("solana" in window) {
+                //@ts-ignore
                     await window.solana.connect();
                     const provider = window.solana;
+                //@ts-ignore
                     setWallet(provider.publicKey.toString());
                 } else {
                     throw new Error("Solana not connected");
                 }
-            } catch (error) {
+            } catch (error:any) {
                 console.info(error);
                 if (error.message.includes("User rejected the request")) {
                     console.error("User rejected the request. Stopping further attempts.");
@@ -62,19 +72,16 @@ const Connect = () => {
     }, []);
     
     
-
-    console.info(session)
-
     return (
         <div className={styles.connect}>
             {session.status === "unauthenticated" &&
-                <CustomButtom onClick={() => {
+                <CustomButtom enabled={true} onClick={() => {
                     signIn('twitter')
                 }} text='Connect X' />
             }
             {session.status === 'authenticated' &&
                 <div className={styles.helperDiv}>
-                    <CustomButtom onClick={() => {
+                    <CustomButtom enabled={true} onClick={() => {
                         signOut()
                     }} text='Disconnect X' />
                     <div className={styles.innerHelperDiv}>
@@ -84,7 +91,7 @@ const Connect = () => {
                 </div>
             }
             {wallet === "" &&
-                <CustomButtom onClick={() => {
+                <CustomButtom enabled={true} onClick={() => {
                     connectWallet();
                 }} text='Connect Wallet' />
             }
