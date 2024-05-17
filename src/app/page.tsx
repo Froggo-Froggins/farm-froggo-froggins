@@ -39,7 +39,7 @@ export default function Home() {
           <Connect />
         </SessionProvider>
       </div>
-      {!hasClickedNo && !hasClickedYes &&
+      {/* {!hasClickedNo && !hasClickedYes &&
         <div className={`doYou ${!hasClickedNo && !hasClickedYes ? 'hidden' : ''}`}>
           <h1>Do you have a referral link?</h1>
           <div className="doYouButtons">
@@ -61,11 +61,11 @@ export default function Home() {
           }} text="Submit" />
            <CustomButton enabled={true} onClick={() => {
           setHasClickedYes(true)
-          setSubmitClicked(true);
+          setSubmitClicked(true)
           }} text="Skip" />
         </div>
-      }
-      { (hasClickedNo || submitClicked) &&
+      } */}
+      { true &&
         <Link style={{ color: "white", textDecoration: 'none', marginTop:'50px' }} href={isButtonEnabled ? '/tasks' : '/'}>
           <CustomButton enabled={isButtonEnabled} onClick={() => {
           }} text="Start farming!" />
