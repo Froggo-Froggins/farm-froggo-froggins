@@ -7,6 +7,7 @@ import Tasks, { ITask } from '../components/tasks/Tasks';
 import { useUserData } from '../context';
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import Socials from '../components/socials/Socials';
 
 const tasks: ITask[] = [
   // { desc: "Complete the profile setup", points: 10, link: "/profile",taskButtonText:"Start" },
@@ -62,7 +63,7 @@ export default function TasksPage() {
       )}
       <span style={{fontSize:'1.3rem', color:`${showMessage?'white':'transparent'}`}}>Copied to clipboard!</span>
       {userData && (
-        <h1 className={styles.walletAddress} style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+        <h1 className={styles.walletAddress} style={{ whiteSpace: 'nowrap',}}>
           {isMobile ? `${userData.wallet.slice(0, 3)}...${userData.wallet.slice(-3)}` : userData.wallet}
         </h1>
       )}
@@ -74,6 +75,8 @@ export default function TasksPage() {
           {"Good job! All your tasks are complete! 😊"}
         </h1>
       )}
+      <Socials/>
+      <h2 style={{textAlign:'center'}} >© Froggins. All rights reserved.</h2>
     </div>
   );
 }

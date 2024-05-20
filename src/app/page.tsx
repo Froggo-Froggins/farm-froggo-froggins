@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useUserData } from "./context";
 import { useEffect, useState } from "react";
 import CustomButtom from "./components/button/Button";
+import Socials from "./components/socials/Socials";
 
 export default function Home() {
   const userData = useUserData();
@@ -71,6 +72,9 @@ export default function Home() {
           }} text="Start farming!" />
         </Link>
       }
+      <Socials/>
+      <h2 style={{textAlign:'center'}} >© Froggins. All rights reserved.</h2>
+
     </main>
   );
 }

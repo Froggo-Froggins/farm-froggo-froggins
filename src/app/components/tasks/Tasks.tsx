@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './tasks.module.css'
+import Task from '../task/Task'
 
 export interface ITask{
     desc:string
@@ -11,9 +12,11 @@ export interface ITask{
 const Tasks = ({currentTasks}:{currentTasks:ITask[]}) => {
   return (
     <div className={styles.tasks}>
-      <h1>Tasks</h1>
+      <h1 >Tasks</h1>
         <div className={styles.tasksList}>
-          Tasks List
+          {currentTasks.map((task, index) => (
+            <Task key={index} {...task} />
+          ))}
         </div>
     </div>
   )
