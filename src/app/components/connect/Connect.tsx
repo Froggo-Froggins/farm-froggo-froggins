@@ -68,7 +68,7 @@ const Connect = () => {
             }
         };
     
-        attemptConnection(1); // Attempt connection 5 times
+        attemptConnection(1);
     }, []);
     
     
