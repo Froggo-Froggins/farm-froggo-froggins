@@ -3,21 +3,23 @@ import styles from './tasks.module.css'
 import Task from '../task/Task'
 
 export interface ITask{
-    desc:string
+    id:string,
+    description:string
     points:number,
     link:string,
-    taskButtonText:string
+    task_button_text:string
 }
 
-const Tasks = ({currentTasks}:{currentTasks:ITask[]}) => {
+const Tasks = ({currentTasks,userData}:{currentTasks:ITask[],userData:any}) => {
   return (
     <div className={styles.tasks}>
       <h1 >Tasks</h1>
         <div className={styles.tasksList}>
           {currentTasks.map((task, index) => (
-            <Task key={index} {...task} />
+            <Task key={task.id} taskData={task} userData={userData} />
           ))}
         </div>
+       <p> We are manually validating tasks, everyone... </p>
     </div>
   )
 }

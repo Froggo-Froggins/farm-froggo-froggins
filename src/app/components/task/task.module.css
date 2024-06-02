@@ -29,6 +29,7 @@
     padding: 0 2rem;
     height: 100%;
     text-align: center;
+    padding-right: 0
 
 }
 
@@ -42,6 +43,18 @@
     cursor: pointer;
     min-width: 200px;
 }
+
+.loading{
+    animation: rotate 2s linear infinite;
+}
+@keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
 
 @media (max-width:800px) {
     .taskDesc{

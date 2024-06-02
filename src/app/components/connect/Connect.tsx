@@ -28,7 +28,6 @@ const Connect = () => {
                 //@ts-ignore
                 setWallet(provider.publicKey.toString());
             } catch (e) {
-                console.info(e)
             }
         }
     }
@@ -56,7 +55,6 @@ const Connect = () => {
                     throw new Error("Solana not connected");
                 }
             } catch (error:any) {
-                console.info(error);
                 if (error.message.includes("User rejected the request")) {
                     console.error("User rejected the request. Stopping further attempts.");
                     return;
