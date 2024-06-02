@@ -1,7 +1,7 @@
 'use client'
 import Topbar from "./components/topbar/Topbar";
 import CustomButton from "./components/button/Button";
-import { SessionProvider} from "next-auth/react";
+import { SessionProvider } from "next-auth/react";
 import Connect from "./components/connect/Connect";
 import { useUserData } from "./context";
 import { useEffect, useState, Suspense } from "react";
@@ -10,8 +10,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
-export default function Home() {
+const HomeContent = () => {
   const userData = useUserData();
   const isTwitterAndWalletConnect = userData.wallet !== undefined && userData.wallet !== "" && userData.username !== undefined && userData.username !== "" && userData.wallet.length > 0 && userData.username.length > 0;
   const [password, setPassword] = useState('');
@@ -22,15 +21,12 @@ export default function Home() {
   const searchParams = useSearchParams();
   const queryReferralCode = searchParams.get('referralCode');
 
-
-
   useEffect(() => {
     if (queryReferralCode && queryReferralCode !== userData.inputedReferralCode) {
       userData.setInputedReferralCode(queryReferralCode);
       console.info(queryReferralCode);
     }
   }, [queryReferralCode, userData]);
-
 
   const handlePasswordChange = (e: any) => {
     setPassword(e.target.value);
@@ -42,8 +38,7 @@ export default function Home() {
 
   const notify = (text: string) => toast(text, { closeOnClick: true, theme: 'dark' });
 
-
-  const createUser = async()=>{
+  const createUser = async () => {
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`, {
         method: 'POST',
@@ -65,11 +60,11 @@ export default function Home() {
         setAccountCreated(true);
         setJwtValid(true);
         return true;
-      }else{
-        try{
-          const loginTry = await loginUser(userData.username,password,userData.wallet)
+      } else {
+        try {
+          const loginTry = await loginUser(userData.username, password, userData.wallet)
           return loginTry;
-        }catch(e){
+        } catch (e) {
           notify("Something went wrong...")
           return false;
         }
@@ -77,17 +72,17 @@ export default function Home() {
 
     } catch (error) {
       console.info(error)
-      try{
-        const loginTry = await loginUser(userData.username,password,userData.wallet)
+      try {
+        const loginTry = await loginUser(userData.username, password, userData.wallet)
         return loginTry;
-      }catch(e){
+      } catch (e) {
         notify("Something went wrong...")
         return false;
       }
     }
   }
 
-  const validateJwt = async (jwt:string)=>{
+  const validateJwt = async (jwt: string) => {
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/validate`, {
         method: 'GET',
@@ -98,25 +93,23 @@ export default function Home() {
         },
       });
       const responseData = await response.json();
-      
-      if(!response.ok){
+
+      if (!response.ok) {
         setJwtValid(false);
         return false
       }
 
-
       const finishedTasks = responseData.claims.finished_tasks;
       const referrals_count = responseData.claims.referrals_count
-      const referrals_points =responseData.claims.referrals_points
-      const total_points =responseData.claims.total_points
+      const referrals_points = responseData.claims.referrals_points
+      const total_points = responseData.claims.total_points
 
       userData.setUserFinishedTasks(finishedTasks);
-      userData.setPoints({total:total_points,referralsPoints:referrals_points,referrals:referrals_count})
+      userData.setPoints({ total: total_points, referralsPoints: referrals_points, referrals: referrals_count })
       userData.setUserReferrerCode(responseData.claims.referral_code);
-      
+
       setAccountCreated(true)
       setJwtValid(true);
-
 
       return true;
     } catch (error) {
@@ -125,7 +118,7 @@ export default function Home() {
     }
   }
 
-  const loginUser = async (twitter_id:string, password:string, solana_adr:string) => {
+  const loginUser = async (twitter_id: string, password: string, solana_adr: string) => {
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/login`, {
         method: 'POST',
@@ -142,11 +135,11 @@ export default function Home() {
 
       const responseData = await response.json();
 
-      if(responseData.error){
+      if (responseData.error) {
         notify("Bad credentials.")
         return false;
       }
-      
+
       if (!response.ok) {
         notify("Something went wrong...")
         return false;
@@ -155,18 +148,18 @@ export default function Home() {
       if (responseData.jwt) {
         localStorage.setItem('froggins_jwt', responseData.jwt);
         setJwtValid(true);
-      
+
         const userPoints = {
           total: responseData.user.total_points,
           referralsPoints: responseData.user.referral_points,
           referrals: responseData.user.referred_by.length
         };
         const userFinishedTasks = responseData.user.finished_tasks;
-      
+
         userData.setPoints(userPoints);
         userData.setUserFinishedTasks(userFinishedTasks);
         userData.setUserReferrerCode(responseData.user.referral_code);
-      
+
         return true;
       } else {
         return false;
@@ -176,16 +169,14 @@ export default function Home() {
       return false;
     }
   }
-  
-
 
   const handleSubmit = async () => {
-    if(password.length<3){
+    if (password.length < 3) {
       notify("Passwords must be longer than 3 characters.")
       return
 
     }
-    if(password!==repeatPassword) {
+    if (password !== repeatPassword) {
       notify("Passwords dont match.")
       return
     }
@@ -194,13 +185,12 @@ export default function Home() {
     await createUser();
   };
 
-
   useEffect(() => {
-    const validateJwtFunc = async ()=>{
+    const validateJwtFunc = async () => {
       const storedJwt = localStorage.getItem("froggins_jwt");
-      if (storedJwt && storedJwt!==""){
+      if (storedJwt && storedJwt !== "") {
         await validateJwt(storedJwt);
-      }else {
+      } else {
         notify("Please login!")
       }
     }
@@ -209,7 +199,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main className={"main"}>
+    <>
       <Topbar />
       <h1 style={{ textAlign: 'center', padding: '0.5rem' }}>Farm $FROGGINS by completing tasks!</h1>
       <div className={"holder"}>
@@ -218,7 +208,6 @@ export default function Home() {
             <Connect />
           </SessionProvider>
         </div>
-        <Suspense fallback={<div>Loading...</div>}>
         {!jwtValid &&
           <div className="passwordForm">
             <div className="passwordInput">
@@ -238,17 +227,16 @@ export default function Home() {
             }} text="Submit" />
           </div>
         }
-        </Suspense>
         {(accountCreated || jwtValid) &&
           <div style={{ color: "white", textDecoration: 'none', marginTop: '50px' }}>
             <CustomButton enabled={isTwitterAndWalletConnect} onClick={async () => {
-                router.push('/tasks');
+              router.push('/tasks');
             }} text="Start farming!" />
           </div>
         }
       </div>
       <Socials />
-      <h2 style={{ textAlign: 'center' }} >© Froggins. All rights reserved.</h2>
+      <h2 style={{ textAlign: 'center' }}>© Froggins. All rights reserved.</h2>
       <ToastContainer
         autoClose={2500}
         progressStyle={{ background: "rgb(24, 236, 2)" }}
@@ -264,6 +252,16 @@ export default function Home() {
           padding: '1rem',
           fontSize: '2rem'
         }} />
+    </>
+  );
+};
+
+export default function Home() {
+  return (
+    <main className={"main"}>
+      <Suspense fallback={<div>Loading...</div>}>
+        <HomeContent />
+      </Suspense>
     </main>
   );
 }
