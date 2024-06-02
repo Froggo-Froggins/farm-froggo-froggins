@@ -4,7 +4,7 @@ import CustomButton from "./components/button/Button";
 import { SessionProvider} from "next-auth/react";
 import Connect from "./components/connect/Connect";
 import { useUserData } from "./context";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import Socials from "./components/socials/Socials";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ToastContainer, toast } from 'react-toastify';
@@ -218,6 +218,7 @@ export default function Home() {
             <Connect />
           </SessionProvider>
         </div>
+        <Suspense fallback={<div>Loading...</div>}>
         {!jwtValid &&
           <div className="passwordForm">
             <div className="passwordInput">
@@ -237,6 +238,7 @@ export default function Home() {
             }} text="Submit" />
           </div>
         }
+        </Suspense>
         {(accountCreated || jwtValid) &&
           <div style={{ color: "white", textDecoration: 'none', marginTop: '50px' }}>
             <CustomButton enabled={isTwitterAndWalletConnect} onClick={async () => {
