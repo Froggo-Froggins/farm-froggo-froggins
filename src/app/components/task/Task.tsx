@@ -49,7 +49,7 @@ const Task = ({ taskData, userData }: { taskData: ITask, userData: UserDataConte
         userData.setUserReferrerCode(rData.user.referral_code);
 
       }
-
+      return true;
     } catch (error) {
       notify("Something went wrong...");
       return false;
@@ -59,14 +59,19 @@ const Task = ({ taskData, userData }: { taskData: ITask, userData: UserDataConte
   useEffect(() => {
     if (showLoading) {
       const delay = Math.floor(Math.random() * (30000 - 13000 + 1)) + 13000;
-      setTimeout(() => {
-        setShowLoading(false);
-        notify(`You got: ${taskData.points} points!`);
-        userData.setPoints({
-          total: userData.points.total + taskData.points,
-          referralsPoints: userData.points.referralsPoints,
-          referrals: userData.points.referrals
-        });
+      setTimeout(async () => {
+        const isFinished = await finishTask();
+        if(isFinished){
+          setShowLoading(false);
+          notify(`You got: ${taskData.points} points!`);
+          userData.setPoints({
+            total: userData.points.total + taskData.points,
+            referralsPoints: userData.points.referralsPoints,
+            referrals: userData.points.referrals
+          });
+        }else {
+          notify("Something went wrong...")
+        }
       }, delay);
     }
   }, [showLoading]);
@@ -78,7 +83,7 @@ const Task = ({ taskData, userData }: { taskData: ITask, userData: UserDataConte
         {!showLoading && <span className={styles.pointsStuf}>{taskData.points} POINTS</span>}
         {!showLoading && (
           <button className={styles.taskButton} onClick={async () => {
-            await finishTask();
+            window.open(taskData.link,"_none")
             setShowLoading(true);
           }}>
             {taskData.task_button_text}

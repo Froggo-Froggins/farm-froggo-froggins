@@ -6,7 +6,7 @@ import Connect from "./components/connect/Connect";
 import { useUserData } from "./context";
 import { useEffect, useState } from "react";
 import Socials from "./components/socials/Socials";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -19,7 +19,19 @@ export default function Home() {
   const [accountCreated, setAccountCreated] = useState(false);
   const [jwtValid, setJwtValid] = useState(false);
   const router = useRouter();
- 
+  const searchParams = useSearchParams();
+  const queryReferralCode = searchParams.get('referralCode');
+
+
+
+  useEffect(() => {
+    if (queryReferralCode && queryReferralCode !== userData.inputedReferralCode) {
+      userData.setInputedReferralCode(queryReferralCode);
+      console.info(queryReferralCode);
+    }
+  }, [queryReferralCode, userData]);
+
+
   const handlePasswordChange = (e: any) => {
     setPassword(e.target.value);
   };
@@ -42,16 +54,16 @@ export default function Home() {
         body: JSON.stringify({
           twitter_id: userData.username,
           solana_adr: userData.wallet,
-          reffer_code: 1111,
+          reffer_code: parseInt(userData.inputedReferralCode),
           password: password
         }),
       });
-
 
       if (response.ok) {
         const data = await response.json();
         localStorage.setItem('froggins_jwt', data.jwt);
         setAccountCreated(true);
+        setJwtValid(true);
         return true;
       }else{
         try{
@@ -64,6 +76,7 @@ export default function Home() {
       }
 
     } catch (error) {
+      console.info(error)
       try{
         const loginTry = await loginUser(userData.username,password,userData.wallet)
         return loginTry;
@@ -86,8 +99,6 @@ export default function Home() {
       });
       const responseData = await response.json();
       
-      console.info(responseData)
-
       if(!response.ok){
         setJwtValid(false);
         return false
@@ -140,8 +151,6 @@ export default function Home() {
         notify("Something went wrong...")
         return false;
       }
-
-      console.info(responseData)
 
       if (responseData.jwt) {
         localStorage.setItem('froggins_jwt', responseData.jwt);
