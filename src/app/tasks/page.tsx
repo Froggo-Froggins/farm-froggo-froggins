@@ -13,7 +13,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const copyToClipboard = async (userData:any) => {
   try {
-    await navigator.clipboard.writeText(userData.inputedReferralCode);
+    console.info(userData);
+    await navigator.clipboard.writeText(`https://farm.frogofroggins.wtf/${userData.userReferrerCode}`);
   } catch (error) {
     console.error('Failed to copy:', error);
   }
