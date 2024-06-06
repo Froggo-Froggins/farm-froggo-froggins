@@ -19,7 +19,7 @@ const Tasks = ({currentTasks,userData}:{currentTasks:ITask[],userData:any}) => {
             <Task key={task.id} taskData={task} userData={userData} />
           ))}
         </div>
-       <p> We are manually validating tasks, everyone... </p>
+       <p style={{textAlign:'center'}}> To ensure the fair distribution of airdrop, we will manually validate some of the tasks. All participants who are not following the rules (deleting tweets, not doing the tasks correctly etc.) will be disqualified! </p>
     </div>
   )
 }

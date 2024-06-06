@@ -81,8 +81,13 @@
 }
 
 @media (max-width:500px) {
+    .task{
+        padding: 0.5rem 0rem;
+        justify-content: space-between;
+    }
     .pointsAndButton{
         flex-direction: column;
+        padding: 0;
     }
     .taskButton{
         min-width: 100px;
