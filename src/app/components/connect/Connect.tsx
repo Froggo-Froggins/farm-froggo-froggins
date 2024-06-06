@@ -5,12 +5,14 @@ import CustomButtom from '../button/Button'
 import { signIn, signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { useUserData } from '@/app/context'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Connect = () => {
     const session = useSession();
     const triggeredRef = useRef(false); 
 
     const { wallet,imageUrl,username,setWallet,setImageUrl,setUsername } = useUserData();
+    const notify = (text: string) => toast(text, { closeOnClick: true, theme: 'dark' });
 
     useEffect(()=>{
         if(session.status==='authenticated'){
@@ -28,7 +30,10 @@ const Connect = () => {
                 //@ts-ignore
                 setWallet(provider.publicKey.toString());
             } catch (e) {
+                notify("Something went wrong!")
             }
+        } else{
+            notify("Please install Phantom Wallet!")
         }
     }
     
