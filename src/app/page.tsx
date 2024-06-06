@@ -59,6 +59,8 @@ const HomeContent = () => {
         localStorage.setItem('froggins_jwt', data.jwt);
         setAccountCreated(true);
         setJwtValid(true);
+        userData.setUserReferrerCode(data.user.referral_code);
+
         return true;
       } else {
         try {
