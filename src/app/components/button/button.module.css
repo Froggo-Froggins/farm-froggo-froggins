@@ -1,5 +1,4 @@
 .customButton {
-    padding: 1rem 0rem;
     border: 1px solid white;
     font-size: 2rem;
     font-size: clamp(2rem, 1.8rem + 1vw, 3rem);
@@ -7,9 +6,9 @@
     transition: transform 0.2s ease; 
     text-align: center;
     margin: 0;
-    min-width: 300px;
-    max-width: 300px;
+    width: 100%;
     background-color: rgb(62, 53, 71);
+    padding: 1rem;
 }
 
 .customButton:hover {
@@ -55,4 +54,7 @@ div.customButton.notEnable {
     min-width: 300px;
     max-width: 300px;
     background-color: rgb(62, 53, 71);
+}
+
+@media (max-width:570px){
 }

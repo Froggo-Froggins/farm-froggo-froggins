@@ -36,6 +36,7 @@ const HomeContent = () => {
     setRepeatPassword(e.target.value);
   };
 
+
   const notify = (text: string) => toast(text, { closeOnClick: true, theme: 'dark' });
 
   const createUser = async () => {
@@ -204,6 +205,8 @@ const HomeContent = () => {
     <>
       <Topbar />
       <h1 style={{ textAlign: 'center', padding: '0.5rem' }}>Farm $FROGGINS by completing tasks!</h1>
+      <div className="helerDiv">
+        <h1 style={{textAlign:'center'}}>Login/Signup</h1>
       <div className={"holder"}>
         <div className="customButtonHolder">
           <SessionProvider>
@@ -229,6 +232,7 @@ const HomeContent = () => {
             }} text="Submit" />
           </div>
         }
+        </div>
         {(accountCreated || jwtValid) &&
           <div style={{ color: "white", textDecoration: 'none', marginTop: '50px' }}>
             <CustomButton enabled={isTwitterAndWalletConnect} onClick={async () => {
