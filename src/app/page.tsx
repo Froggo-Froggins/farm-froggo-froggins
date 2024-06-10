@@ -87,13 +87,18 @@ const HomeContent = () => {
 
   const validateJwt = async (jwt: string) => {
     try {
+      let bodyData = {
+        solana_adr:userData.wallet,
+        username:userData.username
+      }
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/validate`, {
-        method: 'GET',
+        method: 'POST',
         headers: {
           'Authorization': `Bearer ${jwt}`,
           'Content-Type': 'application/json',
           'X-Security-Hash': process.env.NEXT_PUBLIC_SECURITY_HASH!,
         },
+        body:JSON.stringify(bodyData)
       });
       const responseData = await response.json();
 
@@ -197,9 +202,11 @@ const HomeContent = () => {
         notify("Please login!")
       }
     }
-
-    validateJwtFunc();
-  }, []);
+  
+    if (userData.wallet && userData.username) {
+      validateJwtFunc();
+    }
+  }, [userData.wallet, userData.username]);
 
   return (
     <>
