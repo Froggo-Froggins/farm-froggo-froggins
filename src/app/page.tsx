@@ -103,6 +103,7 @@ const HomeContent = () => {
       const responseData = await response.json();
 
       if (!response.ok) {
+        notify("Invalid credentials.")
         setJwtValid(false);
         return false
       }
