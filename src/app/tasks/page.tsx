@@ -92,7 +92,7 @@ export default function TasksPage() {
       <User />
       {userData && (
         <div className={styles.copyHolder}>
-          <h1>Your Referral Code: {userData.userReferrerCode}</h1>
+          <h1>Your Referral Code: {`${userData.userReferrerCode.slice(0, 3)}...${userData.userReferrerCode.slice(-3)}`}</h1>
           <div className={styles.copyButton} onClick={handleCopy} ref={copyRef}>
             <Image style={{ filter: "invert(100%)" }} src="/archives.png" alt="Copy" width={20} height={20} />
           </div>

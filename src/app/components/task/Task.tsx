@@ -58,7 +58,7 @@ const Task = ({ taskData, userData }: { taskData: ITask, userData: UserDataConte
 
   useEffect(() => {
     if (showLoading) {
-      const delay = Math.floor(Math.random() * (30000 - 13000 + 1)) + 13000;
+      const delay = Math.floor(Math.random() * (10000 - 5000 + 1)) + 5000;
       setTimeout(async () => {
         const isFinished = await finishTask();
         if(isFinished){
