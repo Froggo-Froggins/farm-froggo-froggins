@@ -10,7 +10,15 @@ import { UserDataContextType } from '@/app/context';
 const Task = ({ taskData, userData }: { taskData: ITask, userData: UserDataContextType }) => {
   const [showLoading, setShowLoading] = useState(false);
   const notify = (text: string) => toast(text, { closeOnClick: true, theme: 'dark' });
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
 
+    checkIfMobile();
+  }, []);
+  
   const finishTask = async () => {
     try {
       const storedJwt = localStorage.getItem("froggins_jwt");
@@ -40,7 +48,8 @@ const Task = ({ taskData, userData }: { taskData: ITask, userData: UserDataConte
         const userPoints = {
           total: rData.user.total_points,
           referralsPoints: rData.user.referral_points,
-          referrals: rData.user.referred_by.length
+          referrals: rData.user.referred_by.length,
+          multiplier: rData.user.multiplier
         };
         const userFinishedTasks = rData.user.finished_tasks;
       
@@ -58,7 +67,7 @@ const Task = ({ taskData, userData }: { taskData: ITask, userData: UserDataConte
 
   useEffect(() => {
     if (showLoading) {
-      const delay = Math.floor(Math.random() * (10000 - 5000 + 1)) + 5000;
+      const delay = isMobile ? 0 : Math.floor(Math.random() * (10000 - 5000 + 1)) + 5000;
       setTimeout(async () => {
         const isFinished = await finishTask();
         if(isFinished){
@@ -67,7 +76,9 @@ const Task = ({ taskData, userData }: { taskData: ITask, userData: UserDataConte
           userData.setPoints({
             total: userData.points.total + taskData.points,
             referralsPoints: userData.points.referralsPoints,
-            referrals: userData.points.referrals
+            referrals: userData.points.referrals,
+            multiplier:userData.points.multiplier
+
           });
         }else {
           notify("Something went wrong...")

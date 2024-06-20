@@ -24,7 +24,6 @@ const HomeContent = () => {
   useEffect(() => {
     if (queryReferralCode && queryReferralCode !== userData.inputedReferralCode) {
       userData.setInputedReferralCode(queryReferralCode);
-      console.info(queryReferralCode);
     }
   }, [queryReferralCode, userData]);
 
@@ -74,7 +73,6 @@ const HomeContent = () => {
       }
 
     } catch (error) {
-      console.info(error)
       try {
         const loginTry = await loginUser(userData.username, password, userData.wallet)
         return loginTry;
@@ -112,9 +110,10 @@ const HomeContent = () => {
       const referrals_count = responseData.claims.referrals_count
       const referrals_points = responseData.claims.referrals_points
       const total_points = responseData.claims.total_points
+      const multiplier = responseData.claims.multiplier
 
       userData.setUserFinishedTasks(finishedTasks);
-      userData.setPoints({ total: total_points, referralsPoints: referrals_points, referrals: referrals_count })
+      userData.setPoints({ total: total_points, referralsPoints: referrals_points, referrals: referrals_count,multiplier })
       userData.setUserReferrerCode(responseData.claims.referral_code);
 
       setAccountCreated(true)
@@ -161,7 +160,8 @@ const HomeContent = () => {
         const userPoints = {
           total: responseData.user.total_points,
           referralsPoints: responseData.user.referral_points,
-          referrals: responseData.user.referred_by.length
+          referrals: responseData.user.referred_by.length,
+          multiplier:responseData.user.multiplier
         };
         const userFinishedTasks = responseData.user.finished_tasks;
 

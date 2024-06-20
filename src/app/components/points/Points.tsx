@@ -26,11 +26,11 @@ const ReferalPoints = ({referalPoints,referals}:{referalPoints:number,referals:n
 
 
 
-const Points = ({points,referalPoints,referals}:{points:number,referalPoints:number,referals:number}) => {
+const Points = ({points,referalPoints,referals,multiplier}:{points:number,referalPoints:number,referals:number,multiplier:number}) => {
   return (
     <div className={styles.points}>
-      <TotalPoints points={points}/>
-      <ReferalPoints referalPoints={referalPoints} referals={referals}/>
+      <TotalPoints points={points*multiplier}/>
+      <ReferalPoints referalPoints={referalPoints*multiplier} referals={referals}/>
     </div>
   )
 }

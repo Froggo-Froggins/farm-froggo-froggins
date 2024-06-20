@@ -13,7 +13,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const copyToClipboard = async (userData:any) => {
   try {
-    console.info(userData);
     await navigator.clipboard.writeText(`https://farm.frogofroggins.wtf/?referralCode=${userData.userReferrerCode}`);
   } catch (error) {
     console.error('Failed to copy:', error);
@@ -104,7 +103,7 @@ export default function TasksPage() {
           {isMobile ? `${userData.wallet.slice(0, 3)}...${userData.wallet.slice(-3)}` : userData.wallet}
         </h1>
       )}
-      <Points points={userData.points.total} referalPoints={userData.points.referralsPoints} referals={userData.points.referrals} />
+      <Points multiplier={userData.points.multiplier} points={userData.points.total} referalPoints={userData.points.referralsPoints} referals={userData.points.referrals} />
       {filteredTasks.length > 0 ? (
         <Tasks currentTasks={filteredTasks} userData={userData} />
       ) : (

@@ -24,7 +24,8 @@ export interface UserDataContextType {
 interface Points {
     total: number,
     referrals: number,
-    referralsPoints: number
+    referralsPoints: number,
+    multiplier:number
 }
 
 interface UserData {
@@ -50,7 +51,8 @@ const initialUserData: UserData = {
 const initialPoints: Points = {
     total: 0,
     referrals: 0,
-    referralsPoints: 0
+    referralsPoints: 0,
+    multiplier:1
 };
 
 export function useUserData() {
