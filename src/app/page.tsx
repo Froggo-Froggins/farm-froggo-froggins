@@ -23,6 +23,7 @@ const HomeContent = () => {
 
   useEffect(() => {
     if (queryReferralCode && queryReferralCode !== userData.inputedReferralCode) {
+      localStorage.setItem("froggins_rc",queryReferralCode);
       userData.setInputedReferralCode(queryReferralCode);
     }
   }, [queryReferralCode, userData]);
@@ -40,6 +41,8 @@ const HomeContent = () => {
 
   const createUser = async () => {
     try {
+      const rc = userData.inputedReferralCode ?? localStorage.getItem("froggins_rc");
+
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`, {
         method: 'POST',
         headers: {
@@ -49,8 +52,8 @@ const HomeContent = () => {
         body: JSON.stringify({
           twitter_id: userData.username,
           solana_adr: userData.wallet,
-          reffer_code: parseInt(userData.inputedReferralCode),
-          password: password
+          reffer_code: rc,
+          password
         }),
       });
 
@@ -143,7 +146,7 @@ const HomeContent = () => {
 
       const responseData = await response.json();
       if (responseData.error) {
-        notify(responseData.error)
+        notify(responseData.error==="Bad Request"?"Something went wrong...":responseData.error)
         return false;
       }
 
