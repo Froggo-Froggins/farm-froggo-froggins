@@ -142,7 +142,8 @@ const HomeContent = () => {
       });
 
       const responseData = await response.json();
-
+      console.info(responseData)
+      console.info("----------------")
       if (responseData.error) {
         notify("Bad credentials.")
         return false;
@@ -175,6 +176,8 @@ const HomeContent = () => {
       }
     } catch (error) {
       notify("Something went wrong...")
+      console.info(error);
+      console.info("---------------");
       return false;
     }
   }
