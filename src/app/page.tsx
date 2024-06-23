@@ -135,9 +135,9 @@ const HomeContent = () => {
           'X-Security-Hash': process.env.NEXT_PUBLIC_SECURITY_HASH!,
         },
         body: JSON.stringify({
-          twitter_id:"2",
-          solana_adr:"2",
-          password:"12345",
+          twitter_id,
+          solana_adr,
+          password,
         })
       });
 
