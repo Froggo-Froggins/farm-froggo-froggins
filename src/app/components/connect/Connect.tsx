@@ -40,7 +40,6 @@ const Connect = () => {
       };
 
     useEffect(() => {
-        console.info(session.data?.user?.image)
         if (session.status === 'authenticated') {
             setUsername(session.data.user?.name || '');
             setImageUrl(session.data.user?.image || '')

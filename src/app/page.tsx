@@ -128,9 +128,6 @@ const HomeContent = () => {
 
   const loginUser = async (twitter_id: string, password: string, solana_adr: string) => {
     try {
-      console.info(twitter_id)
-      console.info(solana_adr)
-      console.info(password)
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/login`, {
         method: 'POST',
         headers: {
@@ -138,17 +135,15 @@ const HomeContent = () => {
           'X-Security-Hash': process.env.NEXT_PUBLIC_SECURITY_HASH!,
         },
         body: JSON.stringify({
-          twitter_id,
-          solana_adr,
-          password,
+          twitter_id:"2",
+          solana_adr:"2",
+          password:"12345",
         })
       });
 
       const responseData = await response.json();
-      console.info(responseData)
-      console.info("----------------")
       if (responseData.error) {
-        notify("Bad credentials.")
+        notify(responseData.error)
         return false;
       }
 
@@ -193,7 +188,9 @@ const HomeContent = () => {
       notify("Passwords dont match.")
       return
     }
-    if (!isTwitterAndWalletConnect) return false;
+    if (!isTwitterAndWalletConnect) {
+      notify("Twitter or wallet not connected.")
+      return false};
 
     await createUser();
   };

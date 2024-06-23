@@ -23,8 +23,6 @@ const User = () => {
 
   const profileImageUrl = userData.imageUrl.replace("_normal", "");
 
-  console.info(profileImageUrl)
-
   return (
     <div className={styles.user}>
       {userData && <h1>{userData.username}</h1>}
