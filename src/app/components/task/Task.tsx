@@ -31,8 +31,8 @@ const Task = ({ taskData, userData }: { taskData: ITask, userData: UserDataConte
           'Authorization': `Bearer ${storedJwt}`
         },
         body: JSON.stringify({
-          user_id: userData.username,
-          task_id: taskData.id
+          task_id: taskData.id,
+          wallet: userData.wallet
         })
       });
 
