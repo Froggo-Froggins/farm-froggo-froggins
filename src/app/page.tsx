@@ -128,6 +128,9 @@ const HomeContent = () => {
 
   const loginUser = async (twitter_id: string, password: string, solana_adr: string) => {
     try {
+      console.info(twitter_id)
+      console.info(solana_adr)
+      console.info(password)
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/login`, {
         method: 'POST',
         headers: {
@@ -176,8 +179,6 @@ const HomeContent = () => {
       }
     } catch (error) {
       notify("Something went wrong...")
-      console.info(error);
-      console.info("---------------");
       return false;
     }
   }

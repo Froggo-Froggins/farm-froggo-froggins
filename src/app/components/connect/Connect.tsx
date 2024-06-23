@@ -23,7 +23,7 @@ const Connect = () => {
     const handleSave = () => {
         if (isValidSolanaAddress(inputedAddress)) {
           setIsValid(true);
-          setWallet(inputedAddress)
+          setWallet(inputedAddress.trim())
         } else {
           setIsValid(false);
           notify("Invalid Solana Address")
