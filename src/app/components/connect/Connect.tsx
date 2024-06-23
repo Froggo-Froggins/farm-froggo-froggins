@@ -19,7 +19,9 @@ const Connect = () => {
     const [showWalletInput, setShowWalletInput] = useState(false);
     const [inputedAddress, setInputedAddress] = useState('');
     const [isValid, setIsValid] = useState(false);
-
+    const isEdgeBrowser = () => {
+        return /Edg/.test(navigator.userAgent);
+    };
     const handleSave = () => {
         if (isValidSolanaAddress(inputedAddress)) {
           setIsValid(true);
@@ -56,6 +58,10 @@ const Connect = () => {
     }, []);
 
     const connectWallet = async () => {
+        if (isEdgeBrowser()) {
+            notify("Edge browser is not supported. Please use Chrome or Brave.");
+            return;
+        }
         if ("solana" in window) {
             try {
                 //@ts-ignore
