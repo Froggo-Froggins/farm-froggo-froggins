@@ -106,6 +106,7 @@ const HomeContent = () => {
       if (!response.ok) {
         notify("Invalid credentials.")
         setJwtValid(false);
+        localStorage.removeItem("froggins_jwt")
         return false
       }
 
@@ -146,7 +147,7 @@ const HomeContent = () => {
 
       const responseData = await response.json();
       if (responseData.error) {
-        notify(responseData.error==="Bad Request"?"Something went wrong...":responseData.error)
+        notify(responseData.error)
         return false;
       }
 
