@@ -76,7 +76,7 @@ const Connect = () => {
             if (isMobile) {
 
             } else {
-                notify("Please install Phantom Wallet!")
+                setShowWalletInput(true);
             }
         }
     }
