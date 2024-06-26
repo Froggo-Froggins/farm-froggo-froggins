@@ -72,13 +72,12 @@ const Task = ({ taskData, userData }: { taskData: ITask, userData: UserDataConte
         const isFinished = await finishTask();
         if(isFinished){
           setShowLoading(false);
-          notify(`You got: ${taskData.points} points!`);
+          notify(`You got: ${taskData.points*userData.points.multiplier} points!`);
           userData.setPoints({
             total: userData.points.total + taskData.points,
             referralsPoints: userData.points.referralsPoints,
             referrals: userData.points.referrals,
             multiplier:userData.points.multiplier
-
           });
         }else {
           notify("Something went wrong...")
