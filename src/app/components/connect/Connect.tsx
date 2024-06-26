@@ -58,10 +58,6 @@ const Connect = () => {
     }, []);
 
     const connectWallet = async () => {
-        if (isEdgeBrowser()) {
-            notify("Edge browser is not supported. Please use Chrome or Brave.");
-            return;
-        }
         if ("solana" in window) {
             try {
                 //@ts-ignore
