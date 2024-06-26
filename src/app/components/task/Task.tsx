@@ -88,12 +88,12 @@ const Task = ({ taskData, userData }: { taskData: ITask, userData: UserDataConte
   }, [showLoading]);
 
   return (
-    <div className={styles.task}>
-      <span className={styles.taskDesc}>{taskData.description}</span>
+    <div  className={styles.task}>
+      <span  style={{padding:`${isMobile?`1rem`:`0rem`}`}} className={styles.taskDesc}>{taskData.description}</span>
       <div className={styles.pointsAndButton}>
-        {!showLoading && <span className={styles.pointsStuf}>{taskData.points} POINTS</span>}
+        {!showLoading && <span   className={styles.pointsStuf}>{taskData.points} POINTS</span>}
         {!showLoading && (
-          <button className={styles.taskButton} onClick={async () => {
+          <button style={{marginBottom:'1rem'}} className={styles.taskButton} onClick={async () => {
             window.open(taskData.link,"_none")
             setShowLoading(true);
           }}>
@@ -102,7 +102,7 @@ const Task = ({ taskData, userData }: { taskData: ITask, userData: UserDataConte
         )}
         {showLoading && <span>Validating...</span>}
         {showLoading && <Image className={styles.loading} style={{ filter: 'invert(100%)' }} src={"/loading.png"} width={50} height={50} alt='loading' />}
-        {!showLoading && <div style={{ width: '50px', height: '50px' }}></div>}
+        {!showLoading || isMobile && <div style={{ width: '50px', height: '50px' }}></div>}
       </div>
     </div>
   );

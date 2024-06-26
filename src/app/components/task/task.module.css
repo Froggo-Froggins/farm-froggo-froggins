@@ -17,6 +17,7 @@
 }
 
 .pointsStuf{
+    padding: 1rem;
     font-size: 1.2rem;
     font-size: clamp(1.2rem, 1.14rem + 0.30000000000000004vw, 1.5rem);
 }
