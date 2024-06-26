@@ -104,6 +104,9 @@ export default function TasksPage() {
         </h1>
       )}
       <Points multiplier={userData.points.multiplier} points={userData.points.total} referalPoints={userData.points.referralsPoints} referals={userData.points.referrals} />
+      <h2 onClick={()=>{
+        window.open("https://docs.google.com/document/d/1m62q2c6gUcAoDtzyYKoyIPt0XRnOVMDSGAuZbY-jdfk/edit","","");
+       }} style={{border:'1px solid white', padding:'1rem 3rem', cursor:'pointer',fontSize:'2.5rem'}}>F.A.Q.</h2>
       {filteredTasks.length > 0 ? (
         <Tasks currentTasks={filteredTasks} userData={userData} />
       ) : (
