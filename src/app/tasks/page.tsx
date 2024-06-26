@@ -108,7 +108,7 @@ export default function TasksPage() {
         <Tasks currentTasks={filteredTasks} userData={userData} />
       ) : (
         <h1 style={{ textAlign: 'center', padding: '0.5rem' }}>
-          {"Good job! All your tasks are complete! 😊"}
+          {"Good job! All your tasks are completed! 😊"}
         </h1>
       )}
       <Socials />
